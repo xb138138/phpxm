@@ -21,6 +21,9 @@
             <a href="reg.php">去注册</a>
         </div>
     </form>
+    <?php
+
+    ?>
 </div>
 </body>
 </html>
