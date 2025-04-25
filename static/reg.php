@@ -12,6 +12,7 @@
     <form class="reg-box" method="post" action="#" name="regForm">
         <h2>用户注册</h2>
         <label for="username">用户名</label>
+
         <input type="text" id="username" name="uName" required autocomplete="username">
         <label for="password">密码</label>
         <input type="password" id="password" name="uPass" required autocomplete="new-password">
