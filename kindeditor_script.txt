@@ -1,0 +1,35 @@
+      <script charset="utf-8" src="kindeditor/kindeditor.js"></script>
+        <script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
+        <script type="text/javascript">
+            //初始化文件编辑器
+            var editor;
+            KindEditor.ready(function(K) {
+                 editor = K.create('textarea[name="content"]', {
+                    cssPath : 'kindeditor/plugins/code/prettify.css',
+                    allowImageUpload:false,allowFlashUpload:false,
+                    allowMediaUpload:false});
+                prettyPrint();
+            });
+            //表单域校验
+            function valid(){
+                if(document.postForm.title.value=="") {
+                    alert("标题不能为空");
+                    return false;
+                }
+                content = editor.html();//获取编辑框中的值
+                if(content =="") {
+                    alert("内容不能为空");
+                    return false;
+                }               
+                if(content.length>1000) {
+                    alert("长度不能大于1000");
+                    return false;
+                }
+            }
+            function init(){
+                //判断是否为回复
+                if(document.postForm.topicId.value!=""){
+                                   document.postForm.action="../manage/doReply.php";
+                }
+            }
+        </script>

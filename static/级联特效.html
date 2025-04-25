@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>级联特效.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script type="text/javascript" language="javascript">
+	   function onChange(){
+	     var cityList = new Array();
+	     cityList['湖南'] = ['长沙','邵阳','株洲','易阳'];
+	     cityList['四川'] = ['成都','绵阳','德阳'];
+	     cityList['湖北'] = ['武汉','宜昌','黄石'];
+	     cityList['空'] = ['------请选择城市----'];
+	     var newOption;
+	     var pIndex = document.myForm.selProvince.value;
+	     document.myForm.selCity.options.length = 0;
+	     for(var i in cityList[pIndex]){
+	        newOption = new Option(cityList[pIndex][i],cityList[pIndex][i]);
+	        document.myForm.selCity.options.add(newOption);
+	     }
+	   } 
+	 
+	</script>
+  </head>
+  
+  <body>
+    <form action="" name="myForm" id="myForm">
+       省:<select name="selProvince" id="selProvince"  onFocus="onChange()" onChange="onChange()">
+         <option value="空">---请选择所在省---</option>
+          <option value="湖南">湖南</option>
+          <option value="四川">四川</option>
+          <option value="湖北">湖北</option>
+       </select>
+       <br>
+       城市:<select name="selCity" id="selCity" />
+         
+    </form>
+  </body>
+</html>
+
