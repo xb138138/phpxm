@@ -9,21 +9,18 @@
 </head>
 <body>
 <div class="login-container">
-    <form class="login-box" method="post" action="#" name="loginForm">
+    <form class="login-box" method="get" action="../conn/dologin.php" name="loginForm">
         <h2>用户登录</h2>
         <label for="username">用户名</label>
-        <input type="text" id="username" name="uName" required autocomplete="username">
+        <input type="text" id="username" name="uname" required autocomplete="username">
         <label for="password">密码</label>
-        <input type="password" id="password" name="uPass" required autocomplete="current-password">
+        <input type="password" id="password" name="upass" required autocomplete="current-password">
         <button type="submit" class="login-btn">登录</button>
         <div class="login-links">
             <a href="index.php">返回首页</a>
             <a href="reg.php">去注册</a>
         </div>
     </form>
-    <?php
-
-    ?>
 </div>
 </body>
 </html>

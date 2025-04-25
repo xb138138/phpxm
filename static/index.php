@@ -1,3 +1,20 @@
+<?php
+session_start();
+require_once dirname(__DIR__).'/conn/conn.php';
+$user_head = '';
+if (isset($_SESSION['uname'])) {
+    $conn = get_conn();
+    $stmt = $conn->prepare("SELECT head FROM tbl_user WHERE uName=? LIMIT 1");
+    $stmt->bind_param("s", $_SESSION['uname']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $user_head = $row['head'];
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,11 +30,17 @@
     <div class="container">
         <!-- 左侧信息栏 -->
         <div class="sidebar">
-            <img src="../image/logo.png" alt="logo">
+            <img src="../image/logo.png" alt="logo" class="logo">
             <h4>欢迎来到太阳论坛,这是一个带来希望和光明的地方</h4>
             <div class="sidebar-actions">
-                <a href="reg.php" class="sidebar-btn">注册</a>
-                <a href="login.php" class="sidebar-btn">登录</a>
+                <?php if (isset($_SESSION['uname'])): ?>
+                    <img class="sidebar-user-avatar" src="<?php echo $user_head ? '../image/head/' . htmlspecialchars($user_head) : '../image/head/1.gif'; ?>" alt="头像">
+                    <span class="sidebar-user"><?php echo htmlspecialchars($_SESSION['uname']); ?></span>
+                    <a href="logout.php" class="sidebar-btn">退出登录</a>
+                <?php else: ?>
+                    <a href="reg.php" class="sidebar-btn">注册</a>
+                    <a href="login.php" class="sidebar-btn">登录</a>
+                <?php endif; ?>
             </div>
         </div>
         <!-- 右侧内容栏 -->
