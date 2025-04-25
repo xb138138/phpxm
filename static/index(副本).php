@@ -3,7 +3,7 @@
     <HEAD>
         <TITLE>欢迎访问太阳论坛</TITLE>
         <META http-equiv=Content-Type content="text/html; charset=UTF-8">
-        <Link rel="stylesheet" type="text/css" href="../style/style.css">
+        <Link rel="stylesheet" type="text/css" href="../style/style副本.css">
     </HEAD>
 
     <BODY>
