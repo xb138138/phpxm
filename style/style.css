@@ -187,7 +187,7 @@ body {
 .login-box input:focus {
     border-color: #ff9800;
 }
-.login-btn {
+.login-btn ,.reg-btn{
     background: #ff9800;
     color: #fff;
     border: none;
@@ -257,18 +257,7 @@ body {
 .reg-box input:focus {
     border-color: #ff9800;
 }
-.reg-btn {
-    background: #ff9800;
-    color: #fff;
-    border: none;
-    border-radius: 22px;
-    padding: 12px 0;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: background 0.2s;
-}
+
 .reg-btn:hover {
     background: #ffa726;
 }
@@ -305,11 +294,8 @@ body {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: #f7b731;
-    background-image: url('https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/user.svg');
     background-size: 60% 60%;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: #f7b731 url('https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/user.svg') no-repeat center;
     opacity: 0.8;
 }
 .reply-meta {
