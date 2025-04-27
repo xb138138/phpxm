@@ -37,6 +37,7 @@ if (isset($_SESSION['uname'])) {
                     <img class="sidebar-user-avatar" src="<?php echo $user_head ? '../image/head/' . htmlspecialchars($user_head) : '../image/head/1.gif'; ?>" alt="头像">
                     <span class="sidebar-user"><?php echo htmlspecialchars($_SESSION['uname']); ?></span>
                     <a href="logout.php" class="sidebar-btn">退出登录</a>
+                    <a href="profile.php" class="sidebar-btn">个人资料</a>
                 <?php else: ?>
                     <a href="reg.php" class="sidebar-btn">注册</a>
                     <a href="login.php" class="sidebar-btn">登录</a>

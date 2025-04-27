@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         echo "<script>alert('用户名已存在，请更换用户名');history.back();</script>";
     } else {
         // 插入新用户
-        $insert_stmt = $conn->prepare("INSERT INTO tbl_user (uName, uPass, head, gender) VALUES (?, ?, ?, ?)");
-        $insert_stmt->bind_param("sssi", $uname, $upass, $head, $gender);
+        $insert_stmt = $conn->prepare("INSERT INTO tbl_user (uName, uPass, head, email, gender) VALUES (?, ?, ?, ?, ?)");
+        $insert_stmt->bind_param("ssssi", $uname, $upass, $head, $email, $gender);
         
         if ($insert_stmt->execute()) {
             echo "<script>alert('注册成功');window.location.href='../static/login.php';</script>";
