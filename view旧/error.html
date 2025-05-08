@@ -21,13 +21,17 @@
 <BR/>
 <!--      导航        -->
 <DIV>
-	&gt;&gt;<B><a href="index(副本).php">论坛首页</a></B>
+	&gt;&gt;<B><a href="../views/index(副本).php">论坛首页</a></B>
 </DIV>
 <!--     错误页显示        -->
 <DIV class="t" style="MARGIN-TOP: 15px" align="center">
     <br>
     <font color="red">
-       这里显示错误信息
+       <?php
+           if(isset($_GET['msg'])){
+                echo $_GET['msg'];
+           }
+       ?>
     </FONT>
     <br><br>
     <input type="button" value="返回" onclick="window.history.back();"

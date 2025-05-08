@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once dirname(__DIR__).'/conn/conn.php';
+require_once dirname(__DIR__) . '/model/conn.php';
 $user_head = '';
 if (isset($_SESSION['uname'])) {
     $conn = get_conn();
@@ -27,7 +27,7 @@ if (isset($_SESSION['uname'])) {
     <link rel="stylesheet" href="../style/media.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container main-content">
         <!-- 左侧信息栏 -->
         <div class="sidebar">
             <img src="../image/logo.png" alt="logo" class="logo">
@@ -91,6 +91,7 @@ if (isset($_SESSION['uname'])) {
             </div>
         </div>
     </div>
+    <?php include 'float-ball.html'; ?>
 <script>
 
 </script>

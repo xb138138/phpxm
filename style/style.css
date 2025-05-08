@@ -359,6 +359,27 @@ body {
     background: #ffa726;
 }
 
+.detail-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+.detail-meta {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+.detail-meta span {
+    margin-right: 6px;
+}
+.detail-content {
+    color: #222;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
 /* 用户头像美化 */
 .sidebar-user-avatar {
     width: 48px;
@@ -369,4 +390,56 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     vertical-align: middle;
     margin-bottom: 0;
+}
+
+/* 悬浮球样式 */
+#float-ball {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 9999;
+}
+.float-ball-btn {
+  width: 56px;
+  height: 56px;
+  background: #ff9800;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.float-ball-btn:hover {
+  background: #ffa726;
+}
+.float-ball-menu {
+  position: absolute;
+  right: 0;
+  bottom: 70px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  overflow: hidden;
+  min-width: 110px;
+  display: flex;
+  flex-direction: column;
+}
+.float-ball-menu a {
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  border-bottom: 1px solid #f3f3f3;
+  transition: background 0.2s;
+}
+.float-ball-menu a:last-child {
+  border-bottom: none;
+}
+.float-ball-menu a:hover {
+  background: #f7b731;
+  color: #fff;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
 <HTML>
 <HEAD>
-<TITLE>诚信管理论坛--发布帖子</TITLE>
+<TITLE>诚信管理论坛--回复帖子</TITLE>
 <META http-equiv=Content-Type content="text/html; charset=UTF-8">
 <Link rel="stylesheet" type="text/css" href="../style/style副本.css" />
 <script type="text/javascript">
@@ -23,37 +23,41 @@ function check(){
 </HEAD>
 
 <BODY>
+<!--      主体        -->
 <DIV>
 	<IMG src="../image/logo.gif">
 </DIV>
 <!--      用户信息、登录、注册        -->
 
-<DIV class="h">
-	您尚未　<a href="login.html">登录</a>
-	&nbsp;| &nbsp; <A href="reg.html">注册</A> |
-</DIV>
+	<DIV class="h">
+		欢迎你，　CMU登录
+		&nbsp;| &nbsp;<a href="">注销</a>|
+	</DIV>
 
 
-<!--      主体        -->
+<BR/>
 <DIV><BR/>
 	<!--      导航        -->
 	<DIV>
-		&gt;&gt;<B><a href="index(副本).php">论坛首页</a></B>&gt;&gt;
-		<B><a href="list.html">C#语言</a></B>
+		&gt;&gt;<B><a href="../views/index(副本).php">论坛首页</a></B>&gt;&gt;
+		<B><a href="list.html">灌水乐园</a></B>
+                &gt;&gt;
+                <B><a href="detail.html">灌水</a></B>
 	</DIV><BR/>
 	<DIV>
-		<FORM name="postForm" onsubmit="return check()" action="" method="POST"> 
+		<FORM name="postForm" onsubmit="return check()" action="" method="POST">
 			<INPUT type="hidden" name="boardId" value="4"/>
 			<INPUT type="hidden" name="topicId" value=""/>
 			<DIV class="t">
 				<TABLE cellSpacing="0" cellPadding="0" align="center">
 				    <TR>
-					    <TD class="h" colSpan="3"><B>发表帖子</B></TD>
+					    <TD class="h" colSpan="3"><B>回复帖子</B></TD>
 				    </TR>
 	
 				    <TR class="tr3">
 					    <TH width="20%"><B>标题</B></TH>
-					    <TH><INPUT class="input" style="PADDING-LEFT: 2px; FONT: 14px Tahoma" tabIndex="1" size="60" name="title"></TH>
+					    <TH><INPUT class="input" style="PADDING-LEFT: 2px; FONT: 14px Tahoma" tabIndex="1" size="60" name="title"
+						           value="re:"></TH>
 				    </TR>
 	
 				    <TR class="tr3">
@@ -69,7 +73,10 @@ function check(){
 					</TR>
 				</TABLE>
 			</DIV>		
-	
+	              <!--增加两个隐藏的表单域，用来存放用户ID和版块ID-->
+                      <input type="hidden" name="userid" value="<%=users.getUid()%>"/>
+                      <input type="hidden" name="topicid" value="<%=topicId%>"/>
+
 			<DIV style="MARGIN: 15px 0px; TEXT-ALIGN: center">
 				<INPUT class="btn" tabIndex="3" type="submit" value="提 交"> 
 				<INPUT class="btn" tabIndex="4" type="reset"  value="重 置">
@@ -77,9 +84,7 @@ function check(){
 		</FORM>	
 	</DIV>
 </DIV>
-<!--      声明        -->
-<BR/>
-<CENTER class="gray">2010 HNS 版权所有</CENTER>
 
+<CENTER class="gray">2010 HNS 版权所有</CENTER>
 </BODY>
 </HTML>

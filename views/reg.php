@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="reg-container">
-    <form class="reg-box" method="get" action="../conn/doreg.php" name="regForm">
+    <form class="reg-box" method="get" action="../model/doreg.php" name="regForm">
         <h2>用户注册</h2>
         <label for="username">用户名</label>
         <input type="text" id="username" name="uname" required autocomplete="username">

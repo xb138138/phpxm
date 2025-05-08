@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="login-container">
-    <form class="login-box" method="get" action="../conn/dologin.php" name="loginForm">
+    <form class="login-box" method="post" action="../model/dologin.php" name="loginForm">
         <h2>用户登录</h2>
         <label for="username">用户名</label>
         <input type="text" id="username" name="uname" required autocomplete="username">
