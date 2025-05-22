@@ -90,7 +90,6 @@ body {
     font-size: 15px;
 }
 .category-bar {
-    margin-bottom: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -111,7 +110,8 @@ body {
     transition: background 0.2s;
 }
 .category-btn:hover, .category-btn.active {
-    background: #ffa726;
+    background: rgba(230, 230, 230, 0.5);
+    color: #ff9800;
 }
 .search-box {
     display: flex;
@@ -395,8 +395,8 @@ body {
 /* 悬浮球样式 */
 #float-ball {
   position: fixed;
-  right: 32px;
-  bottom: 32px;
+  right: 80px;
+  bottom: 100px;
   z-index: 9999;
 }
 .float-ball-btn {
@@ -442,4 +442,63 @@ body {
 .float-ball-menu a:hover {
   background: #f7b731;
   color: #fff;
+}
+
+/*分割线*/
+.custom-hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #ffb300 0%, #ffe0b2 100%);
+    border-radius: 1px;
+    margin: 16px 0;
+    opacity: 0.85;
+}
+/* 分类按钮 */
+.category-child{
+    display: flex;
+    justify-content: space-between;
+}
+
+.category-child-group {
+    margin: 12px 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.category-child-btn {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: none;
+    margin-right: 8px;
+    transition: background 0.2s;
+}
+.category-child-btn:hover {
+    background: #f5f5f5;
+}
+.category-child-btn.active {
+    background: #ff9800;
+    color: #fff;
+    border-color: #ff9800;
+}
+.category-child-btn.active:hover {
+    background: #ffa726;
+    border-color: #ffa726;
+}
+
+.topic-stats {
+    background: #f5f5f5;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    color: #666;
+    font-size: 14px;
 }

@@ -48,18 +48,55 @@ if (isset($_SESSION['uname'])) {
         <div class="main">
             <div class="category-bar">
                 <div class="category-btn-group">
-                    <button class="category-btn">全部</button>
-                    <button class="category-btn">公告</button>
-                    <button class="category-btn">分享</button>
-                    <button class="category-btn">提问</button>
-                    <button class="category-btn">经验</button>
-                    <button class="category-btn">讨论</button>
+                    <button class="category-btn" data-id="all">全部</button>
+                    <?php
+                      //导入数据层
+                      require_once '../model/topicDao.php';
+                      require_once '../model/boardDao.php';
+                      //获取一级板块数据并输出一级
+                      $parentBoards = get_son_boards(0);
+                      foreach ($parentBoards as $parent) {
+                          $parentBoardName = $parent['boardName'];
+                          echo '<button class="category-btn"  data-id="' . $parent['boardid'] . '">' . htmlspecialchars($parent['boardName']) . '</button>';
+                      }
+                    ?>
                 </div>
                 <div class="search-box">
                     <label>
                         <input type="text" class="search-input" placeholder="搜索帖子...">
                     </label>
                     <button class="search-btn">搜索</button>
+                </div>
+            </div>
+            <hr class="custom-hr">
+            <div class="category-child">
+                <div class="category-child-group" id="child-group">
+                    <button class="category-child-btn">全部</button>
+                    <?php
+                    //获取一级版块的编号
+                    $parentBoardId=$parent["boardid"];
+                    //根据一级版块编号获取对应的所有子版块
+                    $sonBoards=get_son_boards($parentBoardId);
+                    //遍历$sonBoards
+                    foreach($sonBoards as $son){
+                        //获取子版块的名称
+                        $sonBoardName=$son["boardName"];
+                        //获取子版块的编号
+                        $sonBoardId=$son["boardid"];
+                        //根据子版块编号获取当前版块的最新帖子信息
+                        $lastTopic=get_last_topic($sonBoardId);
+                        //获取标题
+                        $title=$lastTopic["title"];
+                        //获取用户名
+                        $uName=$lastTopic["uName"];
+                        //获取发表时间
+                        $publishTime=$lastTopic["publishTime"];
+                    }
+                    ?>
+                    <button class="category-child-btn"><?php echo $sonBoardName; ?></button>
+                </div>
+                <div id="topic-count-display" class="topic-stats">
+
                 </div>
             </div>
             <div class="waterfall">
@@ -93,7 +130,133 @@ if (isset($_SESSION['uname'])) {
     </div>
     <?php include 'float-ball.html'; ?>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const childGroup = document.getElementById('child-group');
+        const topicCountDisplay = document.getElementById('topic-count-display');
+        const defaultSubCategories = `
+        <button class="category-child-btn active" data-command="recommend">推荐</button>
+        <button class="category-child-btn" data-command="newest">最新</button>
+        <button class="category-child-btn" data-command="hottest">最热</button>
+    `;
 
+        childGroup.innerHTML = defaultSubCategories;
+        topicCountDisplay.textContent = '推荐帖子';
+
+        // 设置第一个"全部"按钮为激活状态
+        const allButton = document.querySelector('.category-btn[data-id="all"]');
+        if (allButton) {
+            allButton.classList.add('active');
+        }
+        // 子分类按钮点击事件处理
+        childGroup.addEventListener('click', async (e) => {
+            const target = e.target;
+            if (target.classList.contains('category-child-btn')) {
+                childGroup.querySelectorAll('.category-child-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                target.classList.add('active');
+
+                try {
+                    // 处理帖子数量显示
+                    if (target.dataset.command) {
+                        // 处理推荐/最新/最热按钮
+                        topicCountDisplay.textContent = `${target.textContent}帖子`;
+                        return;
+                    }
+
+                    if (target.dataset.id) {
+                        // 获取特定子版块的帖子数
+                        const response = await fetch(`../api/get_board_topics.php?boardid=${target.dataset.id}`);
+                        if (!response.ok) {
+                            topicCountDisplay.textContent = '获取帖子数失败';
+                            return;
+                        }
+                        const data = await response.json();
+                        topicCountDisplay.textContent = `当前版块帖子总数: ${data.topicCount || 0}`;
+                        return;
+                    }
+
+                    // 修改全部按钮的点击处理逻辑
+                    if (target.textContent === '全部') {
+                        const currentParentBtn = document.querySelector('.category-btn.active');
+                        if (!currentParentBtn) {
+                            topicCountDisplay.textContent = '请先选择主分类';
+                            return;
+                        }
+                        const currentParentId = currentParentBtn.dataset.id;
+
+                        try {
+                            // 使用新的API接口获取父版块下所有子版块的帖子总数
+                            const response = await fetch(`../api/get_parent_topics.php?parentid=${currentParentId}`);
+                            if (!response.ok) {
+                                topicCountDisplay.textContent = '获取帖子数失败';
+                                return;
+                            }
+                            const data = await response.json();
+                            if (data.status === 'success') {
+                                topicCountDisplay.textContent = `当前版块帖子总数: ${data.totalTopics}`;
+                            } else {
+                                topicCountDisplay.textContent = '获取帖子数失败';
+                            }
+                        } catch(err) {
+                            console.error('获取总帖子数失败:', err);
+                            topicCountDisplay.textContent = '获取数据失败';
+                        }
+                    }
+                } catch(err) {
+                    console.error('操作失败:', err);
+                    topicCountDisplay.textContent = '获取数据失败';
+                }
+            }
+        });
+
+        // 主分类按钮点击处理
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', async ({target}) => {
+                // 移除其他按钮的active类
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                target.classList.add('active');
+
+                const pid = target.dataset.id;
+                if(pid === 'all') {
+                    childGroup.innerHTML = defaultSubCategories;
+                    childGroup.querySelector('.category-child-btn').classList.add('active');
+                    topicCountDisplay.textContent = '推荐帖子';
+                    return;
+                }
+
+                try {
+                    // 获取子版块数据和帖子总数
+                    const response = await fetch(`../api/get_parent_topics.php?parentid=${pid}`);
+                    const data = await response.json();
+
+                    if (!response.ok || data.status !== 'success') {
+                        childGroup.innerHTML = '<button class="category-child-btn active">获取数据失败</button>';
+                        topicCountDisplay.textContent = '获取数据失败';
+                        return;
+                    }
+
+                    // 构建子版块按钮HTML
+                    childGroup.innerHTML = [
+                        '<button class="category-child-btn active">全部</button>',
+                        ...data.childBoards.map(child =>
+                            `<button class="category-child-btn" data-id="${child.boardid}">
+                                ${child.boardName}
+                            </button>`
+                        )
+                    ].join('');
+
+                    // 显示该分类下所有帖子总数
+                    topicCountDisplay.textContent = `当前版块帖子总数: ${data.totalTopics || 0}`;
+
+                } catch(err) {
+                    console.error('获取子版块失败:', err);
+                    childGroup.innerHTML = '<button class="category-child-btn active">获取数据失败</button>';
+                    topicCountDisplay.textContent = '获取数据失败';
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
